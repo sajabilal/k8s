@@ -2,7 +2,7 @@ name: CI/CD to EKS (Docker Hub + buildx)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   workflow_dispatch:
 
 env:
@@ -52,10 +52,10 @@ jobs:
           # Image names: DOCKER_ORG/lab-backend, DOCKER_ORG/lab-frontend
           if [ "${{ matrix.app }}" = "backend" ]; then
             echo "image=${{ env.DOCKER_ORG }}/lab-backend" >> $GITHUB_OUTPUT
-            echo "context=./backend" >> $GITHUB_OUTPUT
+            echo "context=./backend-deployment" >> $GITHUB_OUTPUT
           else
             echo "image=${{ env.DOCKER_ORG }}/lab-frontend" >> $GITHUB_OUTPUT
-            echo "context=./frontend" >> $GITHUB_OUTPUT
+            echo "context=./frontend-deployment" >> $GITHUB_OUTPUT
           fi
 
       - name: Build & Push with buildx (cache)
